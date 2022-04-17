@@ -18,6 +18,7 @@ public class ObjectPool : MonoBehaviour
         {
             var obj = Instantiate(prefab, transform);
             _freeObjects.Add(obj);
+            //Enabling/Disabling renderers might be more performant
             obj.SetActive(false);
         }
     }
@@ -29,6 +30,7 @@ public class ObjectPool : MonoBehaviour
         {
             obj = _freeObjects[0];
             _freeObjects.Remove(obj);
+            //Enabling/Disabling renderers might be more performant
             obj.SetActive(true);
         }
         else
@@ -45,6 +47,8 @@ public class ObjectPool : MonoBehaviour
         if (_usedObjects.Remove(obj))
         {
             _freeObjects.Add(obj);
+            //Enabling/Disabling renderers might be more performant
+            obj.SetActive(false);
         }
         else
         {
