@@ -71,6 +71,7 @@ public class Board : SerializedMonoBehaviour
             var tileParent = _board[coordinate.xCoord, coordinate.yCoord];
             //Ignore already removed tiles in case the list contains duplicates
             if (tileParent.childCount == 0) continue;
+            AddAffectedCoordinate(coordinate.xCoord, coordinate.yCoord);
             var tile = tileParent.GetChild(0).GetComponent<Tile>();
             _tilePool.ReleaseObject(tile.gameObject);
             tile.Disappear();
@@ -111,14 +112,9 @@ public class Board : SerializedMonoBehaviour
     //Shifts one by one instead of making the tiles fall to the bottom
     private void RecursiveShift(int row, int column)
     {
+        AddAffectedCoordinate(row, column);   
         var tileParent = _board[row, column];
         if (row < 1 || tileParent.childCount == 0) return;
-        var affectedCoordinate = new Coordinate(row, column);
-        //The coordinates in this list should be unique but it would be nice to avoid the search cost before each add
-        //For every unique item, the list will be iterated until the end
-        //Although it should be short enough it's still a significant amount of extra cost
-        if(!_lastAffectedTiles.Contains(affectedCoordinate))
-            _lastAffectedTiles.Add(affectedCoordinate);
         if (_board[row - 1, column].childCount != 0)
         {
             RecursiveShift(row - 1, column);
@@ -130,6 +126,16 @@ public class Board : SerializedMonoBehaviour
         tileTransform.parent = _board[newRow, column];
         tile.UpdateCoordinates(new Coordinate(newRow, column));
         tile.MoveToPosition();
+    }
+
+    private void AddAffectedCoordinate(int row, int column)
+    {
+        var affectedCoordinate = new Coordinate(row, column);
+        //The coordinates in this list should be unique but it would be nice to avoid the search cost before each add
+        //For every unique item, the list will be iterated until the end
+        //Although it should be short enough it's still a significant amount of extra cost
+        if(!_lastAffectedTiles.Contains(affectedCoordinate))
+            _lastAffectedTiles.Add(affectedCoordinate);
     }
 
     //For searching for a match after a swap
