@@ -101,10 +101,11 @@ MonoBehaviour:
       Data: 
   swipePixelCount: 50
   tileSize: 2.56
+  cameraSizePerTile: 3
   tileAnimationDuration: 0.5
   swapDuration: 0.5
   slideDuration: 0.5
-  postSlideDelay: 0.1
+  postSlideDelay: 0
   tileBackgroundColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
   swapZPosition:
     serializedVersion: 2
@@ -172,4 +173,36 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  cameraSizePerTile: 3
+  failSwapPosition:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.33
+      value: 0.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
